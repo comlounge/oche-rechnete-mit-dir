@@ -1,0 +1,7 @@
+.Python
+.installed.cfg
+bin/
+include/
+lib/
+*.pyc
+*.pyo
