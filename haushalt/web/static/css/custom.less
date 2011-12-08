@@ -1,0 +1,252 @@
+body {
+  position: relative;
+  padding-top: 90px;
+  background-color: #fff;
+  background-repeat: repeat-x;
+}
+
+body > .navbar-fixed .brand2 {
+  font-size: 20px;
+  padding: 8px 0 0 0;
+  padding-right: 0;
+  padding-left: 0;
+  float: right;
+  font-weight: bold;
+  border-top: 5px solid #ff0;
+  color: #f0f0f0;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1);
+}
+body > .navbar-fixed .brand2:hover {
+  text-decoration: none;
+}
+
+
+
+
+/* Space out sub-sections more
+ * -------------------------------------------------- */
+.page-header {
+  margin-top: 36px;
+}
+
+
+/* Jumbotrons
+ * -------------------------------------------------- */
+.jumbotron {
+  position: relative;
+  text-shadow: 0 1px 0 #fff;
+}
+.jumbotron h1 {
+  margin-right: 40%;
+  margin-bottom: 9px;
+  font-size: 90px;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.jumbotron p {
+  margin-right: 32%;
+  margin-bottom: 20px;
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 36px;
+}
+.jumbotron .btn-large {
+  font-size: 20px;
+  padding: 14px 24px;
+  margin-right: 5px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+.jumbotron .download-info {
+  font-size: 16px;
+  color: #999;
+}
+
+.subhead {
+  padding-bottom: 14px;
+  margin-bottom: 15px;
+  border-bottom: 3px solid #e5e5e5;
+}
+.subhead h1,
+.subhead p {
+  margin-right: 0;
+}
+.subhead h1 {
+  font-size: 45px;
+}
+.buttonrow {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+
+
+
+.updown-sparvorschlag {
+    color: #494;
+}
+.updown-ausgabevorschlag {
+    color: #944;
+}
+
+.rating {
+    overflow: auto;
+    width: 130;
+    height: 20px;
+    overflow: none;
+    position: relative;
+    .contra, .pro {
+        position: absolute;
+        top: 0;
+        height: 18px;
+        float: left;
+        width: 60px;
+    }
+    .fill {
+        position: absolute;
+        z-index: 3;
+        right: 0;
+        height: 18px;
+        background: #d00;
+    }
+    .pro .fill {
+        left: 0;
+        background: #292;
+    }
+    .contra {
+        border: 1px solid #f0f0f0;
+        border-right: none;
+        left: 0;
+    }
+    .pro {
+        border: 1px solid #f0f0f0;
+        border-left: none;
+        left: 61px;
+    }
+}
+
+h1 small a {
+    color: #aaf;
+}
+
+.txt-large p {
+    font-size: 130%;
+    line-height: 1.3;
+}
+
+
+
+@media (max-width: 480px) {
+
+  /* Hide the nav for now */
+  body > .navbar-fixed .nav {
+    display: none;
+  }
+
+  /* Change up some type stuff */
+  h1 small {
+    display: block;
+    line-height: 20px;
+  }
+  /* More space between sections */
+  h2 {
+    margin-top: 27px;
+  }
+  h3 {
+    margin-top: 18px;
+  }
+
+  /* Adjust the jumbotron */
+  .jumbotron h1,
+  .jumbotron p {
+    text-align: center;
+    margin-right: 0;
+  }
+  .jumbotron h1 {
+    font-size: 45px;
+    margin-right: 0;
+  }
+  .jumbotron p {
+    margin-right: 0;
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .jumbotron .btn {
+    display: block;
+    font-size: 18px;
+    padding: 10px 14px;
+    margin: 0 auto 10px;
+  }
+
+  /* Don't space out quick links so much */
+  .quick-links {
+    margin: 40px 0 0;
+  }
+
+}
+
+
+@media (max-width: 768px) {
+
+  /* Hide the nav for now */
+  body > .navbar-fixed .nav {
+    display: none;
+  }
+
+  /* Adjust the jumbotron */
+  .jumbotron .benefits {
+    position: relative;
+    width: auto;
+    margin: 36px 0;
+  }
+
+  /* Popovers */
+  .large-bird {
+    display: none;
+  }
+  .popover-well .popover-wrapper {
+    margin-left: 0;
+  }
+
+  /* Space out the show-grid examples */
+  .show-grid [class*="span"] {
+    margin-bottom: 5px;
+  }
+
+  /* Unfloat the back to top link in footer */
+  .footer .pull-right {
+    float: none;
+  }
+
+}
+
+
+@media (min-width: 480px) and (max-width: 768px) {
+
+  /* Scale down the jumbotron content */
+  .jumbotron h1 {
+    font-size: 54px;
+  }
+
+  .jumbotron h1,
+  .jumbotron p {
+    margin-right: 0;
+  }
+
+}
+
+
+@media (min-width: 768px) and (max-width: 940px) {
+
+  /* Scale down the jumbotron content */
+  .jumbotron h1 {
+    font-size: 72px;
+  }
+
+  /* Provide enough space on right-hand side for benefits list */
+  .jumbotron h1,
+  .jumbotron p {
+    margin-right: 40%;
+  }
+}
+

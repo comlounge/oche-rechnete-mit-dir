@@ -1,0 +1,46 @@
+{% extends "master.html" %}
+{% set proposal = view.proposal %}
+{% block headline %}
+    <h1>{{proposal.title}}</h1>
+    <div id="infobar">
+        eingestellt von <strong>{{proposal.username}}</strong>
+        in <strong>{{proposal.category}}</strong>
+        am <strong>{{proposal.date.strftime('%d.%m.%Y')}}</strong>
+    </div>
+{% endblock %}
+{% block subcontent %}
+    <section>
+    <div class="row">
+        <div class="span9">
+            <div class="txt-large">
+                {{proposal.html}}
+            </div>
+        </div>
+        <div class="span3">
+            <div class="row">
+                <div class="rating span2">
+                    <div class="contra">
+                        <div class="fill" style="width:{{view.rating_contra}}"></div>
+                    </div>
+                    <div class="pro">
+                        <div class="fill" style="width:{{view.rating_pro}}"></div>
+                    </div>
+                </div> 
+                <div class="span1">
+                    <strong>{{proposal.rating}}</strong>
+                </div>
+            </div>
+            <div style="margin-top: 5px">
+                <p>{{proposal.comment_count}} Kommentare</p>
+                <p>{{proposal.votes}} Bewertungen</p>
+                <small class="updown-{{view.proposal.updown}}">{{view.proposal.updown}}</small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <h3>Kommentare</h3>
+        </div>
+    </div>
+    </section>
+{% endblock %}

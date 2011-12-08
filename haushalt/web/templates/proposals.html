@@ -1,0 +1,52 @@
+{% extends "master.html" %}
+{% block subcontent %}
+    <div class="row">
+        <div class="span12">
+            <div class="buttonrow">
+                <div class="btn-group">
+                    <a href="{{url}}" class="btn btn-small disabled">Sortiert nach:</a>
+                    <a href="{{url}}?sort=popular-down" class="btn btn-small {{'primary' if sort=='popular-down'}}">beliebt</a>
+                    <a href="{{url}}?sort=popular-up" class="btn btn-small {{'primary' if sort=='popular-up'}}">unbeliebt</a>
+                    <a href="{{url}}?sort=comment-down" class="btn btn-small {{'primary' if sort=='comment-down'}}">viel kommentiert</a>
+                    <a href="{{url}}?sort=comment-up" class="btn btn-small {{'primary' if sort=='comment-up'}}">wenig kommentiert</a>
+                    <a href="{{url}}" class="btn btn-small {{'primary' if sort=='active'}}">aktiv</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section>
+    {% for view in proposals %}
+    {% set proposal = view.proposal %}
+    <div class="row">
+        <div class="span9">
+            <h3><a href="/vorschlaege/{{proposal._id}}">{{proposal.title}}</a>
+                <small class="updown-{{proposal.updown}}">{{proposal.updown}}</small>
+            </h3>
+            <div>
+                {{proposal.html|striptags()|truncate(500)}}
+            </div>
+        </div>
+        <div class="span3">
+            <div class="row">
+                <div class="rating span2">
+                    <div class="contra">
+                        <div class="fill" style="width:{{view.rating_contra}}"></div>
+                    </div>
+                    <div class="pro">
+                        <div class="fill" style="width:{{view.rating_pro}}"></div>
+                    </div>
+                </div> 
+                <div class="span1">
+                    <strong>{{proposal.rating}}</strong>
+                </div>
+            </div>
+            <div style="margin-top: 5px">
+                <span class="muted">{{proposal.comment_count}} Kommentare</span> <br>
+                <span class="muted">{{proposal.votes}} Bewertungen</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+    </section>
+{% endblock %}

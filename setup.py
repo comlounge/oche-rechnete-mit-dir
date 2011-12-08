@@ -24,5 +24,9 @@ setup(name='aachen-haushalt',
         "BeautifulSoup"
       ],
       entry_points="""
+        [starflyer.config]
+        default = haushalt.web.setup:setup
+        [paste.app_factory]
+        main = starflyer:run
       """,
       )

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>inoffizielle Ausgabe der Bürgerbefragung zum Haushalt Aachen</title>
+    <meta name="description" content="Aachen Rechnet Mit Ihnen - inoffizielle Version">
+    <meta name="author" content="COM.lounge GmbH">
+    <link rel="SHORTCUT ICON" href="/img/favicon.ico" />
+  
+    {% set vpath=settings.virtual_path %}
+    <link rel="stylesheet/less" href="/css/bootstrap.less" />
+    
+    <script src="/js/jquery-1.6.min.js"></script>
+    <script src="/js/less-1.1.3.min.js"></script>
+    {% block js %}
+    {% endblock %} 
+</head>
+<body>
+    <div class="navbar navbar-fixed" data-scrollspy="scrollspy">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Oche rechnete mit Dir</a>
+          <a class="brand2" href="http://oecher.info">oecher.info</a>
+          <ul class="nav">
+            <li class="active"><a href="/vorschlaege">Vorschläge</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        {% block content %}
+        <header class="jumbotron subhead" id="overview">
+            {% block headline %}
+                <p class="lead">Liste der Vorschläge</p>
+            {% endblock %}
+        </header>
+        {% block subcontent %}
+        {% endblock %}
+        {% endblock %}
+    </div>
+
+
+</body>
+</html>
