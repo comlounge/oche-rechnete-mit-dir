@@ -40,6 +40,19 @@
     <div class="row">
         <div class="span12">
             <h3>Kommentare</h3>
+            {% for comment in proposal.comments %}
+                <div class="row">
+                    <div class="span8">
+                        <div class="comment {{'reply' if comment.in_reply_to}}">
+                            <h4>{{comment.title}}
+                                <small> von {{comment.username}}</small>
+                            </h4>
+                            {{comment.content}}
+                            <div class="byline">geschrieben am {{comment.date}}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
     </section>
