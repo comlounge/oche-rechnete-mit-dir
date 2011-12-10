@@ -1,5 +1,14 @@
 from starflyer import Handler, ashtml
 
+class Impressum(Handler):
+    """display impressum"""
+
+    template = "impressum.html"
+
+    @ashtml()
+    def get(self):
+        return self.render()
+
 class Homepage(Handler):
     """display homepage"""
 
@@ -7,10 +16,7 @@ class Homepage(Handler):
 
     @ashtml()
     def get(self):
-        # 1 = gut, 3 = schlecht
-        proposals = self.config.dbs.haushalt.proposals.find().sort("rating",1)
-        #proposals = self.config.dbs.haushalt.proposals.find().sort("votes",-1)
-        return self.render(proposals = proposals)
+        return self.render()
 
 class ProposalAdapter(object):
     

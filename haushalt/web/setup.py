@@ -36,6 +36,7 @@ def setup(**kw):
     config.routes.extend([
         ('/', 'homepage', handlers.Homepage),
         ('/vorschlaege', 'proposals', handlers.Proposals),
+        ('/impressum', 'impressum', handlers.Impressum),
         ('/vorschlaege/<vid>', 'proposal', handlers.Proposal),
     ])
     config.dbs.haushalt = pymongo.Connection().haushalt
