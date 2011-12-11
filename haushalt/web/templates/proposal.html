@@ -31,19 +31,60 @@
                 </div>
             </div>
             <div style="margin-top: 5px">
-                <p>{{proposal.comment_count}} Kommentare</p>
-                <p>{{proposal.votes}} Bewertungen</p>
-                <small class="updown-{{view.proposal.updown}}">{{view.proposal.updown}}</small>
+                <table>
+                    <tr>
+                        <td>Kommentare: </td>
+                        <td>{{proposal.comment_count}}</td>
+                    </tr>
+                    <tr>
+                        <td>Bewertungen: </td>
+                        <td>{{proposal.votes}}</td>
+                    </tr>
+                    <tr>
+                        <td>Finanziell: </td>
+                        <td>
+                            {% if proposal.updown=="ausgabevorschlag" %}
+                                <span class="label important">Mehrausgabe</span>
+                            {% elif proposal.updown=="sparvorschlag" %}
+                                <span class="label success">Einsparung</span>
+                            {% else %}
+                                <span class="label notice">keine Angabe</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>von: </td>
+                        <td>
+                            {% if proposal.type=="V" %}
+                                <span class="label warning">Verwaltung</span>
+                            {% elif proposal.type=="B" %}
+                                <span class="label notice">Bürger</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan=2>
+                            <a href="{{proposal.url}}">zum Original-Vorschlag</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan=2>
+                            <a href="https://twitter.com/share" class="twitter-share-button" data-via="openaachen" data-lang="de" data-size="large">Tweet</a>
+                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row comments">
         <div class="span12">
-            <h3>Kommentare</h3>
+            <hr style="border-bottom: 7px solid #444;">
+            <h1>Kommentare <small>({{proposal.comment_count}})</small></h1>
             {% for comment in proposal.comments %}
                 <div class="row">
                     <div class="span8">
-                        <div class="comment {{'reply' if comment.in_reply_to}}">
+                        <div class="comment {{'reply' if comment.in_reply_to}} {{'last' if loop.last}}">
                             <h4>{{comment.title}}
                                 <small> von {{comment.username}}</small>
                             </h4>
@@ -54,6 +95,9 @@
                 </div>
             {% endfor %}
         </div>
+    </div>
+    <div id="programmer" class="alert-message notice">
+        <small>Für Programmierer: <a href="{{url_for('proposal_json', vid=proposal._id)}}">Ausgabe als JSON</a></small>
     </div>
     </section>
 {% endblock %}

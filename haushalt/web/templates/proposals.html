@@ -1,6 +1,18 @@
 {% extends "master.html" %}
+{% block js %}
+    <script>
+    $(document).ready( function () {
+        $("select").change( function() {
+            $("#filter").submit();
+        });
+    });
+    </script>
+{% endblock %}
+{% block headline %}
+    <p class="lead">Vorschläge {{pager.count_from}} bis {{pager.count_to}} von {{pager.amount}} Vorschlägen</p>
+{% endblock %}
 {% block subcontent %}
-    <div class="row">
+    <div class="row hide">
         <div class="span12">
             <div class="buttonrow">
                 <div class="btn-group">
@@ -14,14 +26,80 @@
             </div>
         </div>
     </div>
+    <form class="vertical-form row" name="filter" action="{{url}}" id="filter">
+        <input type="hidden" name="page" value="{{page}}">
+        <input type="hidden" name="amount" value="{{amount}}">
+            <fieldset class="control-group span3">
+                <label class="control-label" for="sort">Sortiert nach</label>
+                <div class="controls">
+                    <select name="sort">
+                        <option {{'selected' if sort=='popular-down'}} value="popular-down">Beliebtheit</option>
+                        <option {{'selected' if sort=='comment-down'}} value="comment-down">Kommentare</option>
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset class="control-group span3">
+                <label class="control-label" for="sort">Vorschläge von</label>
+                <div class="controls">
+                    <select name="vtype">
+                        <option {{'selected' if vtype=="both"}} value="both">Bürgern und Verwaltung</option>
+                        <option {{'selected' if vtype=="citizen"}} value="citizen">Bürgern</option>
+                        <option {{'selected' if vtype=="gov"}} value="gov">Verwaltung</option>
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset class="control-group span3">
+                <label class="control-label" for="sort">Vorschlagstyp</label>
+                <div class="controls">
+                    <select name="updown">
+                        <option {{'selected' if updown=="all"}} value="all">Alle Vorschläge</option>
+                        <option {{'selected' if updown=="sparvorschlag"}} value="sparvorschlag">nur Sparvorschläge</option>
+                        <option {{'selected' if updown=="ausgabevorschlag"}} value="ausgabevorschlag">nur Ausgabevorschläge</option>
+                        <option {{'selected' if updown=="k.a."}} value="k.a.">nur sonstige</option>
+                    </select>
+                </div>
+            </fieldset>
+    </form>
+    <div class="row">
+        <div class="span8">
+            <div class="pagination">
+              <ul>
+                <li class="prev {{'disabled' if pager.is_first}}"><a href="{{pager.prev_page.url}}">&larr; zurück</a></li>
+                {% for page in pager.page_range %}
+                    {% if page.dots %}
+                        <li class="disabled"><a href="#">…</a></li>
+                    {% else %}
+                        <li class="{{'active' if page.active}}"><a href="{{page.url}}">{{page.no}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="next {{'disabled' if pager.is_last}}"><a href="{{pager.next_page.url}}">vorwärts &rarr;</a></li>
+              </ul>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="pagination pull-right">
+                <ul>
+                <li class="disabled"><a href="#">Anzahl pro Seite:</a></li>
+                {% for amount in amounts %}
+                    <li class="{{'active' if amount.active}}"><a href="{{amount.url}}">{{amount}}</a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <h3>
+    </h3>
     <section>
     {% for view in proposals %}
     {% set proposal = view.proposal %}
-    <div class="row">
-        <div class="span9">
-            <h3><a href="/vorschlaege/{{proposal._id}}">{{proposal.title}}</a>
-                <small class="updown-{{proposal.updown}}">{{proposal.updown}}</small>
-            </h3>
+    <div class="row type{{proposal.type|lower}}">
+        <div class="span9 typeb">
+            <h4><a href="/vorschlaege/{{proposal._id}}">{{proposal.title}}</a>
+                {% if proposal.updown=="ausgabevorschlag" %}<span class="label important">Mehrausgabe</span>{% endif %}
+                {% if proposal.updown=="sparvorschlag" %}<span class="label success">Einsparung</span>{% endif %}
+                {% if proposal.type=="V" %}<span class="label warning">Verwaltungsvorschlag</span>{% endif %}
+            </h4>
             <div>
                 {{proposal.html|striptags()|truncate(500)}}
             </div>
@@ -48,5 +126,22 @@
     </div>
     <hr>
     {% endfor %}
+    <div class="pagination">
+      <ul>
+        <li class="prev {{'disabled' if pager.is_first}}"><a href="{{pager.prev_page.url}}">&larr; zurück</a></li>
+        {% for page in pager.page_range %}
+            {% if page.dots %}
+                <li class="disabled"><a href="#">…</a></li>
+            {% else %}
+                <li class="{{'active' if page.active}}"><a href="{{page.url}}">{{page.no}}</a></li>
+            {% endif %}
+        {% endfor %}
+        <li class="next {{'disabled' if pager.is_last}}"><a href="{{pager.next_page.url}}">vorwärts &rarr;</a></li>
+      </ul>
+    </div>
+    <div id="programmer" class="alert-message notice">
+        <small>Für Programmierer: <a href="/vorschlaege.json?start={{(pager.count_from-1)}}&limit={{pager.per_page}}">Ausgabe als JSON</a></small>
+    </div>
+
     </section>
 {% endblock %}

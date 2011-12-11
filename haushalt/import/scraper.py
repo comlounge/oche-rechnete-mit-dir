@@ -12,7 +12,6 @@ class HaushaltsScraper(object):
 
     def __init__(self, login_url, username, password):
         self.login_url = login_url
-        self.main_url = main_url
         self.username = username
         self.password = password
         self.browser = mechanize.Browser()
@@ -31,7 +30,6 @@ class HaushaltsScraper(object):
 
     def get_proposals(self, url):
         """retrieve a list of links to all proposals"""
-        url = self.main_url
         links = []
         while True:
             response = self.browser.open(url)
@@ -127,17 +125,20 @@ class HaushaltsScraper(object):
             'rating' : avg_rating,
             'comment_count' : comment_count,
             'type' : prefix,
-            '_id' : nr,
+            '_id' : "%s_%s" %(prefix,nr),
             'comments' : clist, 
         }
+	print url
         return doc
 
 if __name__=="__main__":
     s = HaushaltsScraper("http://www.aachen-rechnet-mit-ihnen.de/user?destination=node/5593", 
                          local.username, local.password)
     s.login()
-    proposals1 = self.get_proposals("http://www.aachen-rechnet-mit-ihnen.de/diskussion")
-    proposals2 = self.get_proposals("http://www.aachen-rechnet-mit-ihnen.de/diskussion-stadt")
+    proposals1 = s.get_proposals("http://www.aachen-rechnet-mit-ihnen.de/diskussion")
+    print len(proposals1)
+    proposals2 = s.get_proposals("http://www.aachen-rechnet-mit-ihnen.de/diskussion-stadt")
+    print len(proposals2)
     for url in proposals1 + proposals2:
         print s.store_proposal(url)
 

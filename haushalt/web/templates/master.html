@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>inoffizielle Ausgabe der Bürgerbefragung zum Haushalt Aachen</title>
-    <meta name="description" content="Aachen Rechnet Mit Ihnen - inoffizielle Version">
+    <title>{{title | d('Oche rechnete mir Dir: inoffizielle Ausgabe der Bürgerbefragung zum Haushalt Aachen')}}</title>
+    <meta name="description" content="{{description|d('Aachen Rechnet Mit Ihnen - inoffizielle Version')|striptags()}}">
     <meta name="author" content="COM.lounge GmbH">
     <link rel="SHORTCUT ICON" href="/img/favicon.ico" />
   
     {% set vpath=settings.virtual_path %}
     <link rel="stylesheet/less" href="/css/bootstrap.less" />
     
-    <script src="/js/jquery-1.6.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script src="/js/less-1.1.3.min.js"></script>
     {% block js %}
     {% endblock %} 
@@ -41,7 +41,19 @@
         {% block subcontent %}
         {% endblock %}
         {% endblock %}
+    <footer style="margin-top: 30px; margin-bottom: 30px;">
+        <div id="comlounge" class="pull-right">
+                Ein Projekt von <br>
+                <a href="http://comlounge.net/"><img src="/img/comlounge.png" width="180" height="28" alt="COM.lounge"></a>
+        </div>
+        <p>
+        Datenquelle: <a href="http://www.aachen-rechnet-mit-ihnen.de">aachen-rechnet-mit-ihnen.de</a><br>
+        Diese Ausgabe wurde implementiert von von <a href="http://mrtopf.de">MrTopf</a>
+        </p>
+    </footer>
     </div>
+
+
 <!-- Piwik --> 
 <script type="text/javascript">
 var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.netzwende.de/" : "http://piwik.netzwende.de/");
