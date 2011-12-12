@@ -3,6 +3,15 @@ from starflyer import Handler, ashtml, asjson
 import copy
 import math
 
+class Stats(Handler):
+    """display statistics"""
+
+    template = "stats.html"
+
+    @ashtml()
+    def get(self):
+        return self.render()
+
 class Impressum(Handler):
     """display impressum"""
 

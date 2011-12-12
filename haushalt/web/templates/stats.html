@@ -1,0 +1,101 @@
+{% extends "master.html" %}
+{% block js %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Typ');
+        data.addColumn('number', 'Anzahl');
+        data.addRows([
+          ['Ausgabevorschlag',    40],
+          ['Sparvorschlag',      100],
+          ['keine Angabe',  32],
+        ]);
+
+        var options = {
+          width: 700, height: 700,
+          title: 'Verteilung nach Vorschlagstypen',
+          colors: ['#c22', '#2a2', "#aaa"],
+          is3D: true
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div1'));
+        chart.draw(data, options);
+
+
+
+
+        // Sparvorschläge pro / contra
+        var data2 = new google.visualization.DataTable();
+        data2.addColumn('string', 'Typ');
+        data2.addColumn('number', 'Anzahl');
+        data2.addRows([
+          ['pro',    77],
+          ['neutral/negativ',      23],
+        ]);
+
+        var options2 = {
+          width: 350, height: 300,
+          title: 'Sparvorschläge: pro vs. neutral/contra',
+          colors: ['#2a2', '#c22']
+        };
+
+        var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
+        chart2.draw(data2, options2);
+
+
+
+
+
+        // Ausgabevorschläge pro / contra
+        var data3 = new google.visualization.DataTable();
+        data3.addColumn('string', 'Typ');
+        data3.addColumn('number', 'Anzahl');
+        data3.addRows([
+          ['pro',    26],
+          ['neutral/negativ',      14],
+        ]);
+
+        var options3 = {
+          width: 350, height: 300,
+          title: 'Ausgabevorschläge: pro vs. neutral/contra',
+          colors: ['#2a2', '#c22']
+        };
+
+        var chart3 = new google.visualization.PieChart(document.getElementById('chart_div3'));
+        chart3.draw(data3, options3);
+      }
+    </script>
+
+{% endblock %}
+
+{% block content %}
+    <div id="overview">
+    <header class="jumbotron subhead">
+        <div class="inner">
+            <h1>Statistiken
+            </h1>
+            <p class="lead">
+                verschiedene Visualisierungen der vorhandenen Daten
+            </p>
+        </div>
+    </header>
+    <section>
+        <div class="row">
+            <div class="span8">
+                <div id="chart_div1"></div>
+            </div>
+            <div class="span4">
+                <div id="chart_div2"></div>
+                <div id="chart_div3"></div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>
+</html>

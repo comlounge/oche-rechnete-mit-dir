@@ -38,6 +38,7 @@ def setup(**kw):
         ('/vorschlaege.json', 'proposals_json', handlers.ProposalsJSON),
         ('/vorschlaege', 'proposals', handlers.Proposals),
         ('/impressum', 'impressum', handlers.Impressum),
+        ('/stats', 'stats', handlers.Stats),
         ('/opendata', 'opendata', handlers.OpenData),
         ('/vorschlaege/<vid>.json', 'proposal_json', handlers.ProposalJSON),
         ('/vorschlaege/<vid>', 'proposal', handlers.Proposal),
