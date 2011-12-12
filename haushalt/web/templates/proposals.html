@@ -12,20 +12,6 @@
     <p class="lead">Vorschläge {{pager.count_from}} bis {{pager.count_to}} von {{pager.amount}} Vorschlägen</p>
 {% endblock %}
 {% block subcontent %}
-    <div class="row hide">
-        <div class="span12">
-            <div class="buttonrow">
-                <div class="btn-group">
-                    <a href="{{url}}" class="btn btn-small disabled">Sortiert nach:</a>
-                    <a href="{{url}}?sort=popular-down" class="btn btn-small {{'primary' if sort=='popular-down'}}">beliebt</a>
-                    <a href="{{url}}?sort=popular-up" class="btn btn-small {{'primary' if sort=='popular-up'}}">unbeliebt</a>
-                    <a href="{{url}}?sort=comment-down" class="btn btn-small {{'primary' if sort=='comment-down'}}">viel kommentiert</a>
-                    <a href="{{url}}?sort=comment-up" class="btn btn-small {{'primary' if sort=='comment-up'}}">wenig kommentiert</a>
-                    <a href="{{url}}" class="btn btn-small {{'primary' if sort=='active'}}">aktiv</a>
-                </div>
-            </div>
-        </div>
-    </div>
     <form class="vertical-form row" name="filter" action="{{url}}" id="filter">
         <input type="hidden" name="page" value="{{page}}">
         <input type="hidden" name="amount" value="{{amount}}">
@@ -56,6 +42,16 @@
                         <option {{'selected' if updown=="sparvorschlag"}} value="sparvorschlag">nur Sparvorschläge</option>
                         <option {{'selected' if updown=="ausgabevorschlag"}} value="ausgabevorschlag">nur Ausgabevorschläge</option>
                         <option {{'selected' if updown=="k.a."}} value="k.a.">nur sonstige</option>
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset class="control-group span3">
+                <label class="control-label" for="sort">Kategorie</label>
+                <div class="controls">
+                    <select name="category">
+                        {% for cat, name in categories %}
+                            <option {{'selected' if category==cat}} value="{{cat}}">{{name}}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </fieldset>
@@ -105,22 +101,33 @@
             </div>
         </div>
         <div class="span3">
-            <div class="row">
-                <div class="rating span2">
-                    <div class="contra">
-                        <div class="fill" style="width:{{view.rating_contra}}"></div>
-                    </div>
-                    <div class="pro">
-                        <div class="fill" style="width:{{view.rating_pro}}"></div>
-                    </div>
-                </div> 
-                <div class="span1">
-                    <strong>{{proposal.rating}}</strong>
-                </div>
-            </div>
-            <div style="margin-top: 5px">
-                <span class="muted">{{proposal.comment_count}} Kommentare</span> <br>
-                <span class="muted">{{proposal.votes}} Bewertungen</span>
+            <div>
+                <table class="somemute">
+                    <tr>
+                        <td>
+                            <div class="rating">
+                            <div class="contra">
+                                <div class="fill" style="width:{{view.rating_contra}}"></div>
+                            </div>
+                            <div class="pro">
+                                <div class="fill" style="width:{{view.rating_pro}}"></div>
+                            </div>
+                            </div>
+                        </td>
+                        <td>{{proposal.rating}}</td>
+                    </tr>
+                    <tr>
+                        <td>Kommentare: </td>
+                        <td>{{proposal.comment_count}}</td>
+                    </tr>
+                    <tr>
+                        <td>Bewertungen: </td>
+                        <td>{{proposal.votes}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan=2>{{cat_dict[proposal.category]}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

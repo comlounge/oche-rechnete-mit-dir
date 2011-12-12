@@ -3,6 +3,17 @@ from starflyer import Handler, ashtml, asjson
 import copy
 import math
 
+categories = [
+    ("all", "Alle"), 
+    ("kultur - sport", "Kultur und Sport"), 
+    ("sonstiges", "Sonstiges"), 
+    ("ordnung und sicherheit", "Ordnung und Sicherheit"), 
+    ("bauen - verkehr - umwelt", "Bauen, Verkehr und Umwelt"), 
+    ("familie - kinder - soziales", "Familie, Kinder und Soziales"), 
+    ("verwaltung - rat - finanzen", "Verwaltung, Rat und Finanzen"), 
+]
+cat_dict = dict(categories)
+
 class Stats(Handler):
     """display statistics"""
 
@@ -167,6 +178,7 @@ class Proposals(Handler):
         amount = int(self.request.args.get("amount", "10"))
         vtype = self.request.args.get("vtype", "both")
         updown = self.request.args.get("updown", "all")
+        category = self.request.args.get("category", "all")
 
         q = {}
         if vtype=="citizen":
@@ -175,6 +187,8 @@ class Proposals(Handler):
             q['type']="V"
         if updown in ["sparvorschlag", 'ausgabevorschlag', 'k.a.']:
             q['updown'] = updown
+        if category!="all":
+            q['category'] = category
         
         proposals = self.config.dbs.haushalt.proposals.find(q)
 
@@ -193,12 +207,15 @@ class Proposals(Handler):
             'sort' : sort, 
             'vtype' : vtype, 
             'updown' : updown, 
+            'category' : category, 
         }
 
         pager = MongoPager(proposals, amount, 2, page, params, self.url_for)
         proposals = [ProposalAdapter(p, self.config) for p in pager.objects]
         return self.render(
             proposals = proposals, 
+            categories = categories,
+            cat_dict = cat_dict,
             pager = pager,
             amounts = [Amount(a, params, self.url_for, active=amount==a) for a in [10, 20, 50]],
             **params)
