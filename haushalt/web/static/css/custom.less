@@ -20,6 +20,21 @@ body > .navbar-fixed .brand2:hover {
   text-decoration: none;
 }
 
+.navbar-inner {
+    border-bottom: 5px solid #593;
+    .box-shadow(0 -2px 2px #000 inset);
+}
+
+.navbar {
+  .brand a:hover,
+  ul .active > a {
+    color: @white;
+    text-decoration: none;
+    background-color: #593;
+    #gradient > .vertical(darken(#593, 10%), #593);
+  }
+}
+
 /* Space out sub-sections more
  * -------------------------------------------------- */
 .page-header {

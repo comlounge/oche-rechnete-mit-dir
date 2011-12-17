@@ -21,7 +21,7 @@ class Stats(Handler):
 
     @ashtml()
     def get(self):
-        return self.render()
+        return self.render(active="stats")
 
 class Impressum(Handler):
     """display impressum"""
@@ -30,7 +30,7 @@ class Impressum(Handler):
 
     @ashtml()
     def get(self):
-        return self.render()
+        return self.render(active="impressum")
 
 class OpenData(Handler):
     """display opendata"""
@@ -39,7 +39,7 @@ class OpenData(Handler):
 
     @ashtml()
     def get(self):
-        return self.render()
+        return self.render(active="opendata")
 
 class Homepage(Handler):
     """display homepage"""
@@ -48,7 +48,7 @@ class Homepage(Handler):
 
     @ashtml()
     def get(self):
-        return self.render()
+        return self.render(active="")
 
 class ProposalAdapter(object):
     
@@ -217,6 +217,7 @@ class Proposals(Handler):
             categories = categories,
             cat_dict = cat_dict,
             pager = pager,
+            active="vorschlaege",
             amounts = [Amount(a, params, self.url_for, active=amount==a) for a in [10, 20, 50]],
             **params)
 
@@ -231,6 +232,7 @@ class Proposal(Handler):
         return self.render(
             title = "Oche rechnete mit Dir: "+proposal['title'],
             description = proposal['html'],
+            active="vorschlaege",
             view = ProposalAdapter(proposal, self.config)
             )
 
